@@ -1,6 +1,9 @@
 """Contains EnemyEditor class, designed to streamline editing enemy behaviours in FoM."""
 import json, os
-from _typeshed import SupportsWrite
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from _typeshed import SupportsWrite
 
 class EnemyEditor:
     """Base class to modify enemy configurations in the fiddle file."""
@@ -13,7 +16,7 @@ class EnemyEditor:
         self.fiddle_path = fiddle_path
         with open(fiddle_path, encoding='utf8') as fp:
             self.fiddle = json.load(fp)
-        self.monsters = {monster_type: list(self.fiddle[f"monsters/{monster_type}"].keys()) for monster_type in fiddle["monsters"]}
+        self.monsters = {monster_type: list(self.fiddle[f"monsters/{monster_type}"].keys()) for monster_type in self.fiddle["monsters"]}
         self.all_monsters = [v for variants in self.monsters.values() for v in variants if v != "default"]
         self.monsters_b = {monster: monster_type for monster in self.all_monsters for monster_type in self.monsters if monster in self.monsters[monster_type]}
 
@@ -29,21 +32,21 @@ class EnemyEditor:
         if monster not in self.all_monsters:
             raise ValueError(f"{monster} is not a valid monster variant")
         monster_type = self.monsters_b[monster]
-        unknown_keys = set(new)-set(fiddle[f"monsters/{monster_type}/default"])
+        unknown_keys = set(new)-set(self.fiddle[f"monsters/{monster_type}/default"])
         if unknown_keys != set():
             raise ValueError(f"Unknown dict keys : {unknown_keys}")
-        current = fiddle[f"monsters/{monster_type}/{monster}"] if not force_explicit else {}
+        current = self.fiddle[f"monsters/{monster_type}/{monster}"] if not force_explicit else {}
         for k,v in new.items():
-            if type(current[k]) == dict:
+            if k in current.keys() and type(current[k]) == dict:
                 for key, val in v.items():
                     current[k][key] = val
             else:
                 current[k] = v
-        fiddle[f"monsters/{monster_type}/{monster}"] = current
-        fiddle[f"monsters/{monster_type}"][monster] = current
-        fiddle["monsters"][monster_type][monster] = current
+        self.fiddle[f"monsters/{monster_type}/{monster}"] = current
+        self.fiddle[f"monsters/{monster_type}"][monster] = current
+        self.fiddle["monsters"][monster_type][monster] = current
 
-    def _save(self, monster:str, fp:SupportsWrite[str]):
+    def _save(self, monster:str, fp:"SupportsWrite[str]"):
         """Internal function to save the `EnemyEditor` fiddle values of a specified monster to a file.
         
         Args:
@@ -53,9 +56,9 @@ class EnemyEditor:
         if monster not in self.all_monsters:
             raise ValueError(f"{monster} is not a valid monster variant")
         monster_type = self.monsters_b[monster]
-        d1 = fiddle[f"monsters/{monster_type}/{monster}"]
-        d2 = fiddle[f"monsters/{monster_type}"][monster]
-        d3 = fiddle["monsters"][monster_type][monster]
+        d1 = self.fiddle[f"monsters/{monster_type}/{monster}"]
+        d2 = self.fiddle[f"monsters/{monster_type}"][monster]
+        d3 = self.fiddle["monsters"][monster_type][monster]
         if not (d1 == d2 == d3):
             raise ValueError("Inconsistencies in enemy data.")
         json.dump(d1, fp)
@@ -88,16 +91,15 @@ class EnemyEditor:
             monster (str): The name of the monster to be edited.
             variant_name (str): The name of the saved variant that will be used to update the fiddle file.
         """
-        global fiddle
         monster_type = self.monsters_b[monster]
         with open(f"monsters/patched/{monster_type}/{monster}/{variant_name}.json") as fp:
             variant = json.load(fp)
-        fiddle[f"monsters/{monster_type}/{monster}"] = variant
-        fiddle[f"monsters/{monster_type}"][monster] = variant
-        fiddle["monsters"][monster_type][monster] = variant
+        self.fiddle[f"monsters/{monster_type}/{monster}"] = variant
+        self.fiddle[f"monsters/{monster_type}"][monster] = variant
+        self.fiddle["monsters"][monster_type][monster] = variant
         with open(self.fiddle_path, mode="w", encoding='utf8') as fp:
-            json.dump(fiddle, fp)
+            json.dump(self.fiddle, fp)
         with open(self.fiddle_path, encoding='utf8') as fp:
-            fiddle = json.load(fp)
+            self.fiddle = json.load(fp)
 
 
