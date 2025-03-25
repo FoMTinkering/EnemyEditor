@@ -56,34 +56,34 @@ editor = EnemyEditor(fiddle_path=fiddle_path)
 
 ### To integrate a JSON monster variant
 
-Assuming that you have a `monsters/patched/rockclod_green` folder with a JSON inside it, let's call it "test.json", you can update your fiddle by following steps 1-3 from the previous section (you don't need to do them again if you already did them in the same file) and then running :
+Assuming that you have a `monsters/patched/rockclod_blue` folder with a JSON inside it, let's call it "test.json", you can update your fiddle by following steps 1-3 from the previous section (you don't need to do them again if you already did them in the same file) and then running :
 ```py
-editor.update("rockclod_green", "test") 
+editor.update("rockclod_blue", "test") 
 ```
-This will directly modify the `__fiddle__.json` file provided in the `fiddle_path` variable, replacing the `rockclod_green` values with what was specified in the `test.json`. You can of course do this using any monster variant.
+This will directly modify the `__fiddle__.json` file provided in the `fiddle_path` variable, replacing the `rockclod_blue` values with what was specified in the `test.json`. You can of course do this using any monster variant.
 
 ### Making edits
 
 To make edits, you can use the `replace` method. Specify the name of the monster you want to edit, and provide a dictionary with values you want to update or add.
 
 To get a list of all possible keys you can use in the dictionary, take a look at your monster's monster type default variant in the `defaults` variable from `backups.py`.
-For example, I know I can add `"attack_legion": 4"` to `rockclod_green` because it's a `clod` and `attack_legion` is a key present in `clod`'s default variant. These variants are unused in the actual game and serve the only purpose of setting useless variables to default values in each variant.
+For example, I know I can add `"attack_legion": 4"` to `rockclod_blue` because it's a `clod` and `attack_legion` is a key present in `clod`'s default variant. These variants are unused in the actual game and serve the only purpose of setting useless variables to default values in each variant.
 
 
 Some details : `force_explicit` decides whether to consider the provided dictionary as an update or a complete makeover.
 
 These two lines do the same thing, as `force_explicit` is optional and is set to `False` by default.
 ```py
-editor.replace("rockclod_green", {"hp":5000})
-editor.replace("rockclod_green", {"hp":5000}, force_explicit=False)
+editor.replace("rockclod_blue", {"speed":10})
+editor.replace("rockclod_blue", {"speed":10}, force_explicit=False)
 ```
-Here, `rockclod_green` will be exactly the same as in the provided fiddle file, except it will have 5000hp.
+Here, `rockclod_blue` will be exactly the same as in the provided fiddle file, except it will have super speed.
 
 However if I write : 
 ```py
-editor.replace("rockclod_green", {"hp":5000}, force_explicit=True)
+editor.replace("rockclod_blue", {"speed":10}, force_explicit=True)
 ```
-Then the dictionary will be overwritten completely in the fiddle and fully **replaced** by `{"hp":5000}`.
+Then the dictionary will be overwritten completely in the fiddle and fully **replaced** by `{"speed":10}`.
 This means that the game will turn to the default variant to fill in all the missing values.
 This feature is available purely to give more control over the configuration and is not necessary to implement any specific behaviour.
 

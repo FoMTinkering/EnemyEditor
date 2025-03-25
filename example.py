@@ -11,15 +11,15 @@ fiddle_path = r"<path-to-folder-with-fiddle>\__fiddle__.json"
 
 editor = EnemyEditor(fiddle_path=fiddle_path)
 
-# changes EnemyEditor fiddle's rockclod_green (sets hp to 5000)
-editor.replace("rockclod_green", {"hp":5000}, force_explicit=False)
+# changes EnemyEditor fiddle's rockclod_blue (sets speed to 10)
+editor.replace("rockclod_blue", {"speed":10}, force_explicit=False)
 
 # saves EnemyEditor's fiddle's rockclod under the name test.json
-editor.save("rockclod_green", "test") 
+editor.save("rockclod_blue", "test") 
 
 # updates actual __fiddle__ using test.json
-editor.update("rockclod_green", "test") 
+editor.update("rockclod_blue", "test") 
 
 
 # print all clod keys to find what you can edit!
-print(defaults["clod"].keys())
+#print(defaults["clod"].keys())
