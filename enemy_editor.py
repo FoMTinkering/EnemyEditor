@@ -1,5 +1,6 @@
 """Contains EnemyEditor class, designed to streamline editing enemy behaviours in FoM."""
 import json, os
+from backups import defaults
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -102,4 +103,10 @@ class EnemyEditor:
         with open(self.fiddle_path, encoding='utf8') as fp:
             self.fiddle = json.load(fp)
 
-
+    def restore_default(self, monster):
+        """Restores the `EnemyEditor`'s fiddle's default dictionary for the specified monster.
+        
+        Args:
+            monster (str): The name of the monster to be reset.
+        """
+        self.replace(monster, defaults[monster], force_explicit=True)

@@ -91,7 +91,7 @@ This feature is available purely to give more control over the configuration and
 
 ## Remarks, WIP
 
-Please let me know if you hae any feedback or improvements to suggest, I'll make sure to keep an eye out for this repo from time to time. This was mostly done to make the process of experimenting on Fields Of Mistria enemies less tedious and more digestible.
+Please let me know if you have any feedback or improvements to suggest, I'll make sure to keep an eye out for this repo from time to time. This was mostly done to make the process of experimenting on Fields Of Mistria enemies less tedious and more digestible.
 
 For example, you can have a template such as the one below, which always modifies the enemy you specify with the dictionary you specify, using the default template explicitely, and this gives you full control with little to no effort.
 
