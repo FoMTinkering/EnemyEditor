@@ -109,4 +109,4 @@ class EnemyEditor:
         Args:
             monster (str): The name of the monster to be reset.
         """
-        self.replace(monster, defaults[monster], force_explicit=True)
+        self.replace(monster, defaults[self.monsters_b[monster]], force_explicit=True)
