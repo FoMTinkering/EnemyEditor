@@ -1,7 +1,9 @@
 """Contains EnemyEditor class, designed to streamline editing enemy behaviours in FoM."""
 import json, os
-from backups import defaults
+import backups
 from typing import TYPE_CHECKING
+
+BACKUPS = {item:getattr(backups, item) for item in dir(backups) if not item.startswith("__")}
 
 if TYPE_CHECKING:
     from _typeshed import SupportsWrite
@@ -109,4 +111,4 @@ class EnemyEditor:
         Args:
             monster (str): The name of the monster to be reset.
         """
-        self.replace(monster, defaults[self.monsters_b[monster]], force_explicit=True)
+        self.replace(monster, BACKUPS["defaults"][self.monsters_b[monster]], force_explicit=True)

@@ -1,6 +1,5 @@
 """This file serves as an example file for users to edit enemies."""
-from enemy_editor import EnemyEditor
-from backups import defaults
+from enemy_editor import EnemyEditor, BACKUPS
 
 #   I don't recommend using the game's fiddle directly 
 #   (located in your game's directory, typically in the following path)

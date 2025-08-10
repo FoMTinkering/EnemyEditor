@@ -14,25 +14,7 @@ If you're feeling comfortable, you can provide the game's fiddle directly, so lo
 
 ## Using
 
-Please use this program within the directory you installed it in for optimal use. Your directory with this project should look like this:
-```
-enemyeditor
-│   README.md
-│   enemy_editor.py
-│   example.py
-│   backups.py
-│
-└───monsters
-│   └───backups
-│       └───bat
-│       ...
-│   └───patched
-│       └───bat
-│       ...
-```
-The `patched` folder and subfolders weren't included here. These are generated along as you save variants.
-If you download a variant from someone and want to use this program to add it to your fiddle file, try to recreate the structure shown above and place the variant in the corresponding monster folder inside the `patched` subfolder.
-
+**WIP - I'm making it pip installable, I'll write instructions on how to use it once everything is settled.**
 
 You can follow along with the `example.py` file.
 
@@ -96,8 +78,7 @@ Please let me know if you have any feedback or improvements to suggest, I'll mak
 For example, you can have a template such as the one below, which always modifies the enemy you specify with the dictionary you specify, using the default template explicitely, and this gives you full control with little to no effort.
 
 ```py
-from enemy_editor import EnemyEditor
-from backups import defaults
+from enemy_editor import EnemyEditor, BACKUPS
 
 fiddle_path = r"<path-to-folder-with-fiddle>\__fiddle__.json"
 editor = EnemyEditor(fiddle_path=fiddle_path)

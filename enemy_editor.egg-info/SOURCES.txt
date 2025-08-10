@@ -1,0 +1,6 @@
+README.md
+pyproject.toml
+enemy_editor.egg-info/PKG-INFO
+enemy_editor.egg-info/SOURCES.txt
+enemy_editor.egg-info/dependency_links.txt
+enemy_editor.egg-info/top_level.txt
