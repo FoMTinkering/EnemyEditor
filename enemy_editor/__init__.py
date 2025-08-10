@@ -1,4 +1,4 @@
-from enemy_editor import EnemyEditor, BACKUPS
+from ._enemy_editor import EnemyEditor, BACKUPS
 
 __all__ = [
     "EnemyEditor",

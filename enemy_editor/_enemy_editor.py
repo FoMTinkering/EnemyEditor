@@ -1,9 +1,9 @@
 """Contains EnemyEditor class, designed to streamline editing enemy behaviours in FoM."""
 import json, os
-import backups
+from . import _backups
 from typing import TYPE_CHECKING
 
-BACKUPS = {item:getattr(backups, item) for item in dir(backups) if not item.startswith("__")}
+BACKUPS = {item:getattr(_backups, item) for item in dir(_backups) if not item.startswith("__")}
 
 if TYPE_CHECKING:
     from _typeshed import SupportsWrite
